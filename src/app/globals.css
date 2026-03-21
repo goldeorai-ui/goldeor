@@ -2,26 +2,156 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-main: #0A0A0E;
+  --bg-nav: rgba(10,10,14,0.45);
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-glass: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.1);
+  --btn-gradient: linear-gradient(135deg, #F5C88A 0%, #ECA0C0 35%, #C4A8E8 65%, #A0B8F0 100%);
+  --btn-text: #0A0A0A;
+  --text-body: rgba(255,255,255,0.55);
+  --text-label: rgba(255,255,255,0.35);
+  --text-faint: rgba(255,255,255,0.3);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.light {
+  --bg-main: #F8F8F8;
+  --bg-nav: rgba(255,255,255,0.7);
+  --bg-card: rgba(0,0,0,0.04);
+  --bg-card-glass: rgba(0,0,0,0.03);
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.12);
+  --btn-text: #0A0A0A;
+  --text-body: rgba(0,0,0,0.55);
+  --text-label: rgba(0,0,0,0.4);
+  --text-faint: rgba(0,0,0,0.3);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg-main);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.light body, .light { color: #111; }
+
+/* Glassmorphism card */
+.glass-card {
+  background: var(--bg-card-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
+
+/* Gradient button */
+.btn-gradient {
+  background: var(--btn-gradient);
+  color: var(--btn-text);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 12px 28px;
+  border: none;
+  box-shadow: 0 4px 24px rgba(236,160,192,0.3);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(196,168,232,0.5);
+}
+
+/* Glass input */
+.glass-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-hover);
+  border-radius: 12px;
+  color: inherit;
+  padding: 12px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+.glass-input:focus {
+  border-color: rgba(196,168,232,0.4);
+}
+.glass-input::placeholder {
+  color: var(--text-faint);
+}
+
+/* Silver gradient text for titles */
+.text-silver {
+  background: linear-gradient(180deg, #FFFFFF 0%, #C0C0C0 35%, #8A8A8A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .text-silver {
+  background: linear-gradient(180deg, #111 0%, #333 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient text accent */
+.text-gradient {
+  background: var(--btn-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Status badges */
+.badge-published {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-draft {
+  background: rgba(234,179,8,0.15);
+  color: #eab308;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Sidebar active link */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-body);
+  transition: all 0.2s;
+}
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+.sidebar-link.active {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }

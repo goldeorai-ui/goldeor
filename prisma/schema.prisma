@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      Role     @default(ADMIN)
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  READER
+}
+
+model Article {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  excerpt      String?
+  content      String?
+  status       Status    @default(DRAFT)
+  publishedAt  DateTime?
+  language     String    @default("FR")
+  metaTitle    String?
+  metaDesc     String?
+  canonicalUrl String?
+  coverImage   String?
+  coverAlt     String?
+  views        Int       @default(0)
+  author       Auteur?   @relation(fields: [authorId], references: [id])
+  authorId     String?
+  category     Category? @relation(fields: [categoryId], references: [id])
+  categoryId   String?
+  tags         String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  articles Article[]
+}
+
+model Temoignage {
+  id          String         @id @default(cuid())
+  type        TemoignageType @default(TEXT)
+  displayName String?
+  isPrivate   Boolean        @default(false)
+  role        String?
+  sector      String?
+  keyQuote    String?
+  content     String?
+  mediaUrl    String?
+  rating      Int            @default(5)
+  isFeatured  Boolean        @default(false)
+  status      Status         @default(DRAFT)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+enum TemoignageType {
+  TEXT
+  VIDEO
+  PHOTO
+}
+
+model Auteur {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  role      String?
+  email     String?
+  bioFR     String?
+  bioEN     String?
+  avatar    String?
+  linkedin  String?
+  twitter   String?
+  website   String?
+  articles  Article[]
+  livres    LivreBlanc[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model LivreBlanc {
+  id          String   @id @default(cuid())
+  title       String
+  summary     String?
+  description String?
+  category    String?
+  tags        String[]
+  coverImage  String?
+  pdfUrl      String?
+  pdfSize     Int?
+  downloads   Int      @default(0)
+  status      Status   @default(DRAFT)
+  author      Auteur?  @relation(fields: [authorId], references: [id])
+  authorId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  type      String
+  size      Int?
+  width     Int?
+  height    Int?
+  usedIn    String[]
+  createdAt DateTime @default(now())
+}
+
+model ApiKey {
+  id        String    @id @default(cuid())
+  name      String
+  key       String    @unique
+  lastUsed  DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model TeamMember {
+  id        String       @id @default(cuid())
+  email     String       @unique
+  name      String?
+  role      Role         @default(READER)
+  status    MemberStatus @default(PENDING)
+  invitedAt DateTime     @default(now())
+}
+
+enum MemberStatus {
+  ACTIVE
+  PENDING
+}
+
+model Pixel {
+  id       String  @id @default(cuid())
+  type     String
+  pixelId  String
+  isActive Boolean @default(false)
+}
+
+model Integration {
+  id       String  @id @default(cuid())
+  type     String
+  config   Json    @default("{}")
+  isActive Boolean @default(false)
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  firstName String?
+  lastName  String?
+  email     String
+  phone     String?
+  company   String?
+  profession String?
+  message   String?
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model NotifyEmail {
+  id        String   @id @default(cuid())
+  email     String
+  type      String   // 'livres-blancs' | 'blog'
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id                 String  @id @default("main")
+  siteName           String  @default("Goldeor")
+  siteUrl            String  @default("https://goldeor.com")
+  contactEmail       String  @default("contact@goldeor.com")
+  logo               String?
+  favicon            String?
+  socials            Json    @default("{}")
+  defaultMetaTitle   String?
+  defaultMetaDesc    String?
+  cookieBannerActive Boolean @default(false)
+  cookieBannerText   String?
+}

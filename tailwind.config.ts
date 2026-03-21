@@ -8,9 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["'Plus Jakarta Sans'", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        main: "var(--bg-main)",
+        nav: "var(--bg-nav)",
+        card: "var(--bg-card)",
+        "card-glass": "var(--bg-card-glass)",
+        border: "var(--border)",
+        "border-hover": "var(--border-hover)",
+        "btn-text": "var(--btn-text)",
+        body: "var(--text-body)",
+        label: "var(--text-label)",
+        faint: "var(--text-faint)",
       },
     },
   },
