@@ -97,6 +97,9 @@ function SiteFooter() {
             <Link href="/confidentialite" className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
               Politique de confidentialité
             </Link>
+            <Link href="/admin/login" className="text-xs transition-colors hover:text-white" style={{ color: 'rgba(255,255,255,0.3)' }}>
+              Administration
+            </Link>
           </div>
         </div>
       </div>

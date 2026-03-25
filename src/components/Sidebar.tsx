@@ -18,6 +18,7 @@ const sections: { label: string; links: { href: string; icon: string; label: str
   {
     label: 'SITE',
     links: [
+      { href: '/officiel/index.html', icon: '🏠', label: 'Goldeor Officiel', external: true },
       { href: '/', icon: '🌐', label: 'Voir le site', external: true },
       { href: '/blog', icon: '📰', label: 'Voir le blog', external: true },
       { href: '/temoignages', icon: '⭐', label: 'Voir les témoignages', external: true },
