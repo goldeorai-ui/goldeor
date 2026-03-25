@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { SiteNav } from "@/components/SiteNav"
 
 export const metadata: Metadata = {
   title: {
@@ -7,51 +8,6 @@ export const metadata: Metadata = {
     default: 'Goldeor — Agence Marketing Digital Premium',
   },
   description: 'Goldeor accompagne les entrepreneurs, startups et grandes entreprises dans leur développement digital.',
-}
-
-function SiteNav() {
-  return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 h-[68px]"
-      style={{
-        background: 'rgba(10,10,14,0.45)',
-        backdropFilter: 'blur(18px)',
-        WebkitBackdropFilter: 'blur(18px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-      }}
-    >
-      <Link href="/" className="flex items-center gap-2.5">
-        <span className="text-xl font-extrabold text-white tracking-tight">Goldeor</span>
-      </Link>
-
-      <ul className="hidden md:flex items-center gap-9 list-none">
-        {[
-          { label: 'Accueil', href: '/' },
-          { label: 'Blog', href: '/blog' },
-          { label: 'Cas Clients', href: '/cas-clients' },
-          { label: 'Livres Blancs', href: '/livres-blancs' },
-          { label: 'Agence', href: '/agence' },
-        ].map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className="text-sm font-medium transition-colors"
-              style={{ color: 'rgba(255,255,255,0.7)' }}
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link href="/contact" className="btn-gradient text-sm">
-        Nous contacter
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
-        </svg>
-      </Link>
-    </nav>
-  )
 }
 
 function SiteFooter() {
